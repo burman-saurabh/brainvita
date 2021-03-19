@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Marble Solitaire!!</title>
+    <style>
+        .button {
+            background: #7044a0;
+            border: none;
+            border-bottom: 2px solid #603a88;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 300;
+            padding: .3rem;
+            transition: background .3s ease, color .3s ease;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body style="text-align: center">
+    <h1 style="color: darkgreen">Marble Solitaire!!</h1>
+    <table id="gridId" style="margin: auto">
+        <tr>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+        </tr>
+        <tr>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+        </tr>
+        <tr>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+        </tr>
+        <tr>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/emptyCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+        </tr>
+        <tr>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+        </tr>
+        <tr>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+        </tr>
+        <tr>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/diceCell.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+            <td onclick="updatePosition(this)"><img src="images/blank.png"></td>
+        </tr>
+    </table><br>
+
+    <h3 id="winId" style="font-weight: 600; color: red"></h3>
+    <input id="replayId" class="button" type="button" value="Replay" style="visibility: hidden;"
+        onclick="reload()" /><br>
+
+    <script>
+        function reload() {
+            window.location.reload();
+        }
+
+        for (i = 0; i < document.getElementById('gridId').rows.length; i++) {
+            for (j = 0; j < document.getElementById('gridId').rows[i].cells.length; j++) {
+                document.getElementById('gridId').rows[i].cells[j].id = i + '' + j;
+            }
+        }
+
+        const gridArray = new Array();
+
+        for (i = 0; i < document.getElementById('gridId').rows.length; i++) {
+            for (j = 0; j < document.getElementById('gridId').rows[i].cells.length; j++) {
+                if (document.getElementById('gridId').rows[i].cells[j].innerHTML != '<img src="images/blank.png">') {
+                    gridArray.push(i + '' + j);
+                }
+            }
+        }
+
+        //onsole.log(gridArray.length);
+
+        //console.log(document.getElementById('gridId').rows[5].cells[2].innerHTML);
+
+        //var cellArray = document.getElementsByTagName('td');
+
+        //cellArray[pos].innerHTML = '<img src="images/circleCell.png">';
+
+        let flag = false;
+        let availablePosArray = new Array(); //used to gather all possible moves for a selected dice
+        let elemClicked;
+        let checkArray = new Array(); // used while checking all available moves
+        let countArray = new Array(); // used to count all available dice cells
+
+        function updatePosition(elem) {
+            if (flag == false && elem.innerHTML == '<img src="images/diceCell.png">') {
+                //console.log(elem.parentElement.rowIndex); //gives row no.
+                //console.log(elem.cellIndex); //gives col no.
+                let row = Number(elem.parentElement.rowIndex);
+                let col = Number(elem.cellIndex);
+                elemClicked = elem;
+                flag = true;
+
+                // clearing all previous elements of the array
+                availablePosArray.splice(0, availablePosArray.length);
+
+                // getting all position which is valid to be filled
+                // considering 2 distance and also a filled cell should be in between
+                if (gridArray.indexOf((row - 2) + '' + col) >= 0 && document.getElementById((row - 1) + '' + col)
+                    .innerHTML == '<img src="images/diceCell.png">') {
+                    availablePosArray.push((row - 2) + '' + col);
+                }
+                if (gridArray.indexOf((row + 2) + '' + col) >= 0 && document.getElementById((row + 1) + '' + col)
+                    .innerHTML == '<img src="images/diceCell.png">') {
+                    availablePosArray.push((row + 2) + '' + col);
+                }
+                if (gridArray.indexOf(row + '' + (col + 2)) >= 0 && document.getElementById(row + '' + (col + 1))
+                    .innerHTML == '<img src="images/diceCell.png">') {
+                    availablePosArray.push(row + '' + (col + 2));
+                }
+                if (gridArray.indexOf(row + '' + (col - 2)) >= 0 && document.getElementById(row + '' + (col - 1))
+                    .innerHTML == '<img src="images/diceCell.png">') {
+                    availablePosArray.push(row + '' + (col - 2));
+                }
+
+                elem.innerHTML = '<img src="images/emptyCell.png">';
+
+            } else if (flag == true && elem == elemClicked) {
+                flag = false;
+                elem.innerHTML = '<img src="images/diceCell.png">';
+            } else if (flag == true && elem != elemClicked && elem.innerHTML == '<img src="images/emptyCell.png">') {
+                //debugger;
+                let row = Number(elem.parentElement.rowIndex);
+                let col = Number(elem.cellIndex);
+
+                if (availablePosArray.indexOf(row + '' + col) >= 0) {
+                    // updating empty cell to dice cell if its a valid cell to fill
+                    elem.innerHTML = '<img src="images/diceCell.png">';
+                    flag = false;
+
+                    // updating in between cell to empty cell
+                    if (elemClicked.parentElement.rowIndex == row) {
+                        let emptyCol = col + ((elemClicked.cellIndex - col) / 2);
+                        let emptyRow = row;
+                        document.getElementById(emptyRow + '' + emptyCol).innerHTML =
+                        '<img src="images/emptyCell.png">';
+                    } else if (elemClicked.cellIndex == col) {
+                        let emptyRow = row + ((elemClicked.parentElement.rowIndex - row) / 2);
+                        let emptyCol = col;
+                        document.getElementById(emptyRow + '' + emptyCol).innerHTML =
+                        '<img src="images/emptyCell.png">';
+                    }
+                }
+
+                checkCount();
+
+            }
+
+            // to check if the game is finished
+            function checkCount() {
+                countArray = document.getElementsByTagName('td');
+
+                let count = 0;
+                for (i = 0; i < countArray.length; i++) {
+                    if (countArray[i].innerHTML == '<img src="images/diceCell.png">') {
+                        count++;
+                    }
+                }
+
+                if (count == 1) {
+                    document.getElementById('winId').innerHTML = 'Congrats! You won the game :)';
+                    document.getElementById('replayId').style.visibility = "visible";
+                } else {
+                    checkGameOver();
+                }
+
+            }
+
+            // to check if there is any chance of further moves:---
+            function checkGameOver() {
+                checkArray.splice(0, checkArray.length);
+                for (i = 0; i < document.getElementById('gridId').rows.length; i++) {
+                    for (j = 0; j < document.getElementById('gridId').rows[i].cells.length; j++) {
+                        if (document.getElementById('gridId').rows[i].cells[j].innerHTML ==
+                            '<img src="images/diceCell.png">') {
+                            checkArray.push(document.getElementById('gridId').rows[i].cells[j]);
+                        }
+                    }
+                }
+
+                // count of all possible moves
+                let checkAvailablePossibleCount = 0;
+
+                for (i = 0; i < checkArray.length; i++) {
+
+                    let row = Number(checkArray[i].parentElement.rowIndex);
+                    let col = Number(checkArray[i].cellIndex);
+
+                    if (gridArray.indexOf((row - 2) + '' + col) >= 0 && document.getElementById((row - 1) + '' + col)
+                        .innerHTML == '<img src="images/diceCell.png">' &&
+                        document.getElementById((row - 2) + '' + col).innerHTML == '<img src="images/emptyCell.png">') {
+                        checkAvailablePossibleCount++;
+                    }
+                    if (gridArray.indexOf((row + 2) + '' + col) >= 0 && document.getElementById((row + 1) + '' + col)
+                        .innerHTML == '<img src="images/diceCell.png">' &&
+                        document.getElementById((row + 2) + '' + col).innerHTML == '<img src="images/emptyCell.png">') {
+                        checkAvailablePossibleCount++;
+                    }
+                    if (gridArray.indexOf(row + '' + (col + 2)) >= 0 && document.getElementById(row + '' + (col + 1))
+                        .innerHTML == '<img src="images/diceCell.png">' &&
+                        document.getElementById(row + '' + (col + 2)).innerHTML == '<img src="images/emptyCell.png">') {
+                        checkAvailablePossibleCount++;
+                    }
+                    if (gridArray.indexOf(row + '' + (col - 2)) >= 0 && document.getElementById(row + '' + (col - 1))
+                        .innerHTML == '<img src="images/diceCell.png">' &&
+                        document.getElementById(row + '' + (col - 2)).innerHTML == '<img src="images/emptyCell.png">') {
+                        checkAvailablePossibleCount++;
+                    }
+                }
+
+                if (checkAvailablePossibleCount == 0) {
+                    document.getElementById('winId').innerHTML = 'Game Over!!! Try again :)';
+                    document.getElementById('replayId').style.visibility = "visible";
+                }
+            }
+
+
+
+        }
+    </script>
+
+</body>
+
+</html>
